@@ -128,3 +128,10 @@ Predicted anomaly rate on test set: **~0.84%** → consistent with training dist
 - Try **LightGBM** with tuned class weights.    
 - Add more **rolling/statistical features** to capture temporal shifts.  
 - Regularize stacking ensemble to prevent minority class overfitting.
+
+## 📓 Usage
+
+The full workflow, including data preprocessing, EDA, model training, and evaluation,  
+is available in the Jupyter Notebook:
+
+- [Anomaly Detection Notebook](./anomaly_detection.ipynb)

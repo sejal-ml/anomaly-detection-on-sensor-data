@@ -32,8 +32,6 @@ The challenge is to build a model that can **detect anomalies (class 1)** from l
 
 This imbalance means that a naïve model predicting all zeros would achieve ~99% accuracy but **F1-score for anomalies would be zero**. Handling this imbalance was one of the core challenges.  
 
-> 📊 Add graph: *Class distribution bar plot* → `docs/class_distribution.png`
-
 
 
 ## Exploratory Data Analysis (EDA)
@@ -42,19 +40,14 @@ Key findings from EDA:
 
 1. **Severe class imbalance**  
    - Majority of the data belongs to class 0.  
-   - Visualization confirmed extremely rare anomalies.  
-   > 📊 *Insert class distribution chart*  
+   - Visualization confirmed extremely rare anomalies.
+     ![Class Distribution]() 
 
 2. **Sensor behavior and outliers**  
    - `X3` and `X4` showed extremely large spikes (up to 80–90), far outside the main distribution.  
    - Applying `log1p` transformation significantly reduced skewness.  
-   > 📊 *Insert boxplots of X3 & X4 before/after log transform*  
-
-3. **Time-based patterns**  
-   - Some variation by day of week.  
-   - Rolling means/std on X3 highlighted shifts near anomalies.  
-   > 📊 *Insert sample time series plot for X3 anomalies*  
-
+   ![Box plot]()
+ 
 
 
 ## Preprocessing Steps
@@ -91,9 +84,7 @@ To address imbalance and capture different perspectives, I trained several model
 
 - **Logistic Regression** → Simple baseline with `class_weight="balanced"`.  
 - **XGBoost** → Gradient boosting, tuned with `scale_pos_weight`.  
-- **CatBoost** → Robust boosting, used `auto_class_weights="Balanced"`.  
-- **Isolation Forest** → Unsupervised anomaly detection for comparison.  
-- **Neural Network (PyTorch)** → MLP with simple architecture for non-linear patterns.  
+- **CatBoost** → Robust boosting, used `auto_class_weights="Balanced"`.    
 
 ### Ensembling
 - **Blending:** Averaged predictions of XGBoost + CatBoost.  
@@ -112,8 +103,6 @@ The table shows the best F1 and threshold per model.
 | Logistic Regression | 0.970          | 0.309    | 0.87    | Baseline, underfit |
 | XGBoost            | 0.970          | 0.742    | 0.99    | Strong performance |
 | CatBoost           | 0.970          | 0.734    | 0.993   | Very competitive |
-| Isolation Forest   | —              | —        | —       | For exploration only |
-| Neural Net (MLP)   | 0.950          | ~0.70    | 0.98    | Needed more tuning |
 | Blend (XGB+CAT)    | 0.960          | 0.745    | 0.993   | Slight improvement |
 | Weighted Average   | 0.960          | 0.745    | 0.993   | Best final choice |
 | Stacking           | 0.990          | 0.680    | 0.985   | Overfitting issues |
@@ -129,8 +118,6 @@ Predicted anomaly rate on test set: **~0.84%** → consistent with training dist
 - Boosting models (XGB & CatBoost) captured anomalies best.  
 - Ensemble (weighted average) slightly improved F1-score compared to individual models.  
 - Logistic regression provided a simple baseline but was too weak for imbalanced, non-linear data.  
-- Isolation Forest added interpretability but not competitive results.  
-- Neural nets showed potential but needed deeper architecture & tuning.  
 
 **Final F1-score (OoF): ~0.745**  
 
@@ -138,7 +125,6 @@ Predicted anomaly rate on test set: **~0.84%** → consistent with training dist
 
 ## Next Steps
 
-- Try **LightGBM** with tuned class weights.  
-- Explore **focal loss** for neural networks.  
+- Try **LightGBM** with tuned class weights.    
 - Add more **rolling/statistical features** to capture temporal shifts.  
 - Regularize stacking ensemble to prevent minority class overfitting.

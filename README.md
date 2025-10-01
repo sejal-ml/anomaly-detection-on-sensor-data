@@ -41,7 +41,7 @@ Key findings from EDA:
 1. **Severe class imbalance**  
    - Majority of the data belongs to class 0.  
    - Visualization confirmed extremely rare anomalies.
-     ![Class Distribution](https://github.com/sejal-ml/anomaly-detection-on-sensor-data/blob/main/docs/class%20distribution.png) 
+   ![Class Distribution](https://github.com/sejal-ml/anomaly-detection-on-sensor-data/blob/main/docs/class%20distribution.png) 
 
 2. **Sensor behavior and outliers**  
    - `X3` and `X4` showed extremely large spikes (up to 80–90), far outside the main distribution.  
